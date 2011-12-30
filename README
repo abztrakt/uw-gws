@@ -5,3 +5,12 @@ UW groups web service REST API: https://wiki.cac.washington.edu/display/infra/Gr
 Dependencies:
 - Server Configurations: Must have permission to get information from GWS
 - Security and Access Control: https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API#GroupsWebServiceRESTAPI-Securityandaccesscontrol
+
+In your site's settings.py (or local_settings.py if you use one) you will need to set the following constants:
+
+GWS_HOST: the fqdn of the Groups Web Service host
+GWS_PORT: the port the GWS communicates on
+METHOD: 'GET'
+URL: 'https://%s:%s/group_sws/v2/' % (GWS_HOST, GWS_PORT)
+KEY_FILE: the SSL key for your application
+CERT_FILE: the SSL cert for your application
