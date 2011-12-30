@@ -1,0 +1,7 @@
+This is a Django App to sync Django groups with the UW groups web service (GWS).
+
+UW groups web service REST API: https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API
+
+Dependencies:
+- Server Configurations: Must have permission to get information from GWS
+- Security and Access Control: https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API#GroupsWebServiceRESTAPI-Securityandaccesscontrol
