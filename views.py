@@ -18,3 +18,13 @@ def view_group_info(request,group):
         'result': result,
     }
     return render_to_response('group.html',args,context_instance=RequestContext(request))
+
+def view_group_list(request):
+    object_list = UWGWSGroup.objects.all()
+
+    args = {
+        'title': 'Groups',
+        'object_list': object_list,   
+    }
+
+    return render_to_response('list.html',args,context_instance=RequestContext(request))
