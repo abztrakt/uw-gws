@@ -7,6 +7,14 @@ from uw_gws.models import UWGWSGroup
 # Utils.py contains the get request needed to process the information.
 import utils
 
+def home_page(request):
+
+    args = {
+        'title': 'Home',
+    }
+    return render_to_response('home.html',args,context_instance=RequestContext(request))
+
+
 def view_group_info(request,group):
     '''
     Returns all of the HTML information associated with that group. 
