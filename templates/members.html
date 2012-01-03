@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for member in result %}
+        <li>{{member}}</li>
+    {% endfor %}
+<ul>
+{% endblock %}

@@ -28,3 +28,14 @@ def view_group_list(request):
     }
 
     return render_to_response('list.html',args,context_instance=RequestContext(request))
+
+def view_group_members(request,group):
+
+    result = utils.get_group_members(group)
+    
+    args = {
+        'title': 'Group: %s - Members' % group, 
+        'result': result,
+    }
+    
+    return render_to_response('members.html',args,context_instance=RequestContext(request))
