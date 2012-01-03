@@ -20,6 +20,9 @@ def view_group_info(request,group):
     return render_to_response('group.html',args,context_instance=RequestContext(request))
 
 def view_group_list(request):
+    '''
+    Returns a list of all the groups registered in the django database.
+    '''
     object_list = UWGWSGroup.objects.all()
 
     args = {
@@ -30,6 +33,9 @@ def view_group_list(request):
     return render_to_response('list.html',args,context_instance=RequestContext(request))
 
 def view_group_members(request,group):
+    '''
+    Returns a list of all of the members of the group using the Groups Web Service.
+    '''
 
     result = utils.get_group_members(group)
     
