@@ -22,11 +22,16 @@ def view_group_info(request,group):
     Returns all of the HTML information associated with that group. 
     '''
     result = utils.get_group_info(group)
-    
     args = {
         'title': 'Group: %s' % group, 
-        'result': result,
+        'group': group,
     }
+
+    if not result[0]:
+        args['error'] = result[1] + " No group info can be provided." 
+    else:
+        args['result'] = result[1]
+
     return render_to_response('group.html',args,context_instance=RequestContext(request))
 
 def view_group_list(request):

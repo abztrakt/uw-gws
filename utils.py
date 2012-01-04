@@ -12,12 +12,15 @@ def get_group_info(group):
     
     response = connection.getresponse()
     body = response.read()
-
     connection.close()
+
+    if response.status == 404:
+        return (False,"Error: The group '%s' was not found in the Groups Web Service, instead a 404 error was returned." % group)
+    
 
     # Use BeautifulSoup to output the html in a cleaner format.
     body = BeautifulSoup(body).prettify()
-    return body
+    return (True,body)
 
 
 def get_group_members(group):

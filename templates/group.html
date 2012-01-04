@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<pre>
-{{result}}
-</pre>
+<p>Group: {{group}}</p>
+{% if error %}
+    <p>{{error}}</p>
+{% else %}
+    <pre>{{result}}</pre>
+{% endif %}
 {% endblock %}
