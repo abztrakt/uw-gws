@@ -3,9 +3,6 @@ from django.template import RequestContext
 
 from django.contrib.auth.models import User,Group
 
-# Import the models.py to grab the group model.
-from uw_gws.models import UWGWSGroup 
-
 # Utils.py contains the get request needed to process the information.
 import utils
 
@@ -38,7 +35,7 @@ def view_group_list(request):
     '''
     Returns a list of all the groups registered in the django database.
     '''
-    object_list = UWGWSGroup.objects.all()
+    object_list = Group.objects.all()
 
     args = {
         'title': 'Groups',
