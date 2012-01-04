@@ -4,6 +4,10 @@
 
 <p>Group: {{group}}</p>
 
+{% if error %}
+<p>{{error}}</p>
+{% else %}
+
 <p>Users created:</p>
 <ul>
     {% if created_users %}
@@ -36,5 +40,6 @@
         <li>No users were in this group prior to updating.</li>
     {% endif %}
 </ul>
+{% endif %}
 
 {% endblock %}

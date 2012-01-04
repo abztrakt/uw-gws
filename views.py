@@ -67,7 +67,18 @@ def update_members(request,group):
 
     # Grab all of the members of the group in django and via group web service.
     users = sorted([user.username for user in django_group.user_set.all()])
-    result = sorted(utils.get_group_members(group))
+    result = utils.get_group_members(group)
+    
+    if not result[0]:
+        # No group was found. Return a error message. 
+        args = {
+            'title':'Group: %s - Update members' % group,
+            'group': group,
+            'error': result[1],
+        }
+        return render_to_response('update.html',args,context_instance=RequestContext(request))
+    else:
+        result = sorted(result[1])
 
     # Primarily used for testing, these lists will be populated with any updates to the database regarding groups.
     current_users = []
