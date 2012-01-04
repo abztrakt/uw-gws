@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Group: {{group}}</p>
+
+<p>Users created:</p>
+<ul>
+    {% if created_users %}
+        {% for user in created_users %}
+            <li>{{user}}</li>
+        {% endfor %}
+    {% else %}
+        <li>No users were created for this group.</li>
+    {% endif %}
+</ul>
+
+<p>Users removed from group:</p>
+<ul>
+    {% if removed_users %}
+        {% for user in removed_users %}
+            <li>{{user}}</li>
+        {% endfor %}
+    {% else %}
+        <li>No users were removed from this group.</li>
+    {% endif %}
+</ul>
+
+<p>Unaffected users in group:</p>
+<ul>
+    {% if current_users %}
+        {% for user in current_users %}
+            <li>{{user}}</li>
+        {% endfor %}
+    {% else %}
+        <li>No users were in this group prior to updating.</li>
+    {% endif %}
+</ul>
+
+{% endblock %}
