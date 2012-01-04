@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p>Group: {{group}}</p>
+
+{% if error %}
+<p>{{error}}</p>
+{% else %}
 <ul>
     {% for member in result %}
         <li>{{member}}</li>
     {% endfor %}
 <ul>
+{% endif %}
 {% endblock %}

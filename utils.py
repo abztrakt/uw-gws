@@ -35,7 +35,7 @@ def get_group_members(group):
     connection.close()
      
     if response.status == 404:
-        return (False,"Error: The group '%s' was not found in the Groups Web Service, instead a 404 error was returned. No group update was performed." % group)
+        return (False,"Error: The group '%s' was not found in the Groups Web Service, instead a 404 error was returned." % group)
 
     # Use XHTML parsing to get the group members.
     group_members_array = []

@@ -51,9 +51,14 @@ def view_group_members(request,group):
     
     args = {
         'title': 'Group: %s - Members' % group, 
-        'result': result,
+        'group': group,
     }
-    
+
+    if not result[0]:
+        args['error'] = result[1] + " No members to list." 
+    else:
+        args['result'] = result[1]
+
     return render_to_response('members.html',args,context_instance=RequestContext(request))
 
 # TODO: Possibly move this code to a backend for django.
@@ -74,7 +79,7 @@ def update_members(request,group):
         args = {
             'title':'Group: %s - Update members' % group,
             'group': group,
-            'error': result[1],
+            'error': result[1] + " No group update was performed.",
         }
         return render_to_response('update.html',args,context_instance=RequestContext(request))
     else:
