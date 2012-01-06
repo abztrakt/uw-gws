@@ -24,10 +24,10 @@ def view_group_info(request,group):
         'group': group,
     }
 
-    if not result[0]:
-        args['error'] = result[1] + " No group info can be provided." 
+    if not result[1]:
+        args['error'] = result[0] + " No group info can be provided." 
     else:
-        args['result'] = result[1]
+        args['result'] = result[0]
 
     return render_to_response('group.html',args,context_instance=RequestContext(request))
 
@@ -56,14 +56,13 @@ def view_group_members(request,group):
         'group': group,
     }
 
-    if not result[0]:
-        args['error'] = result[1] + " No members to list." 
+    if not result[1]:
+        args['error'] = result[0] + " No members to list." 
     else:
-        args['result'] = result[1]
+        args['result'] = result[0]
 
     return render_to_response('members.html',args,context_instance=RequestContext(request))
 
-# TODO: Possibly move this code to a backend for django.
 def update_members(request,group):
     '''
     Updates the users of a group for use in the django databases.
@@ -72,12 +71,12 @@ def update_members(request,group):
     # Grab all of the members of the group from the group web service. If the group doesn't exist, stop further processing.
     result = utils.get_group_members(group)
     
-    if not result[0]:
+    if not result[1]:
         # No group was found. Return a error message. 
         args = {
             'title':'Group: %s - Update members' % group,
             'group': group,
-            'error': result[1] + " No group update was performed.",
+            'error': result[0] + " No group update was performed.",
         }
         return render_to_response('update.html',args,context_instance=RequestContext(request))
 
@@ -86,7 +85,7 @@ def update_members(request,group):
 
     # Grab all of the members of the group in django.
     users = sorted([user.username for user in django_group.user_set.all()])
-    result = sorted(result[1])
+    result = sorted(result[0])
 
     # Primarily used for testing, these lists will be populated with any updates to the database regarding groups.
     current_users = []
