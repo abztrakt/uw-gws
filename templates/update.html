@@ -8,7 +8,7 @@
 <p>{{error}}</p>
 {% else %}
 
-<p>Users created:</p>
+<p>Users created and added to group:</p>
 <ul>
     {% if created_users %}
         {% for user in created_users %}
@@ -16,6 +16,17 @@
         {% endfor %}
     {% else %}
         <li>No users were created for this group.</li>
+    {% endif %}
+</ul>
+
+<p>Current Users added to group:</p>
+<ul>
+    {% if added_users %}
+        {% for user in added_users %}
+            <li>{{user}}</li>
+        {% endfor %}
+    {% else %}
+        <li>No current users were added to this group.</li>
     {% endif %}
 </ul>
 

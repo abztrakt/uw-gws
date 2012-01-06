@@ -69,11 +69,7 @@ def update_members(request,group):
     Updates the users of a group for use in the django databases.
     '''
     
-    # First, get or create the group.
-    django_group,django_group_created = Group.objects.get_or_create(name=group)
-
-    # Grab all of the members of the group in django and via group web service.
-    users = sorted([user.username for user in django_group.user_set.all()])
+    # Grab all of the members of the group from the group web service. If the group doesn't exist, stop further processing.
     result = utils.get_group_members(group)
     
     if not result[0]:
@@ -84,13 +80,19 @@ def update_members(request,group):
             'error': result[1] + " No group update was performed.",
         }
         return render_to_response('update.html',args,context_instance=RequestContext(request))
-    else:
-        result = sorted(result[1])
+
+    # If the group exists in the web service, get or create the group.
+    django_group,django_group_created = Group.objects.get_or_create(name=group)
+
+    # Grab all of the members of the group in django.
+    users = sorted([user.username for user in django_group.user_set.all()])
+    result = sorted(result[1])
 
     # Primarily used for testing, these lists will be populated with any updates to the database regarding groups.
     current_users = []
     created_users = []
     removed_users = []
+    added_users = []
 
     if users == result:
         # We have nothing to update.
@@ -107,8 +109,11 @@ def update_members(request,group):
                 user.is_superuser = False
                 user.save()
                 created_users.append(user)
-            else:
+            
+            if user.username in users:
                 current_users.append(user)
+            elif not user_created and user.username not in users:
+                added_users.append(user)
 
             # Now add them to the group.
             user.groups.add(django_group)
@@ -126,6 +131,7 @@ def update_members(request,group):
         'current_users': current_users,
         'created_users': created_users,
         'removed_users': removed_users,
+        'added_users': added_users,
     }
 
     return render_to_response('update.html',args,context_instance=RequestContext(request))
