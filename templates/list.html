@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
+
+<table>
+<thead>
+    <tr>
+        <td>Name</td>
+        <td>XHTML Information</td>
+        <td>Members</td>
+    </tr>
+</thead>
+<tbody>
 {% for obj in object_list %}
-    <li>
-       <a href="{% url view_group_info obj %}">{{ obj.name }}</a>
-    </li>
+    <tr>
+        <td>{{obj.name}}</td>
+        <td><a href="{% url view_group_info obj %}">Info</a></td>
+        <td><a href="{% url view_group_members obj.name %}">Members</a> | <a href="{% url update_members obj.name %}">Update members</a></td>
+    </tr>
 {% endfor %}
-</ul>
+</tbody>
+</table>
 {% endblock %}
