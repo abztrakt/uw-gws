@@ -12,8 +12,7 @@ class GroupAdmin(admin.ModelAdmin):
         count = 0
         for group in queryset:
             update = utils.update_group_members(group.name)
-            result, group_exists = utils.get_group_members(group.name)
-            if group_exists:
+            if update['is_updated']:
                 count += 1
 
         if count == 0:

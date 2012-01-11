@@ -72,9 +72,9 @@ def update_members(request,group):
     args = utils.update_group_members(group)
 
     # Grab all of the members of the group from the group web service. If the group doesn't exist, stop further processing.
-    result, group_exists = utils.get_group_members(group)
+    #result, group_exists = utils.get_group_members(group)
     
-    if not group_exists:
+    if not args['is_updated']:
         # No group was found. Return a error message. 
         args = {
             'title':'Group: %s - Update members' % group,

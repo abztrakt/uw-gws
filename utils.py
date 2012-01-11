@@ -110,8 +110,10 @@ def update_group_members(group):
             'created_users': created_users,
             'removed_users': removed_users,
             'added_users': added_users,
+            'is_updated': True,
         }
 
         return result
     else:
-        return result['error']
+        result['is_updated'] = False
+        return result
