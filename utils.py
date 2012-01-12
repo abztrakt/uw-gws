@@ -53,6 +53,16 @@ def get_group_members(group):
 
     return ({'group_members':group_members_array},True)
 
+def get_member(member):
+    URL = settings.URL + 'group/u_cac_tm-aca/member/mnnguyen'
+    connection = httplib.HTTPSConnection(settings.GWS_HOST,settings.GWS_PORT,settings.KEY_FILE,settings.CERT_FILE)
+    connection.request(settings.METHOD,URL)
+
+    response = connection.getresponse()
+    body = response.read()
+    connection.close()
+    import pdb; pdb.set_trace()
+     
 
 def update_group_members(group):
     '''

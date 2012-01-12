@@ -27,7 +27,6 @@ class Command(BaseCommand):
             message = ''
 
             if result['is_updated']:
-                current = result['current_users']
                 created = result['created_users']
                 removed = result['removed_users']
                 added = result['added_users']
@@ -36,7 +35,7 @@ class Command(BaseCommand):
                     message = 'No update needed for group "%s".' % (group.name) 
                     unaffect_count += 1
                 else:
-                    message = 'Successfully updated group "%s". Created: %d, Added:%d, Removed: %d.' % (group.name, len(created),len(added),len(removed))
+                    message = 'Successfully updated group "%s". Users Created: %d, Added:%d, Removed: %d.' % (group.name, len(created),len(added),len(removed))
                     updated_count += 1
             else:
                 message = 'Group "%s" cannot be found via Group Web Service. Update failed.' % (group.name)
@@ -46,4 +45,4 @@ class Command(BaseCommand):
                 self.stdout.write('%s\n' % message)
 
         if verbosity > 0:
-            self.stdout.write('Update finished. Updated: %d, Unaffected: %d, Failed: %d\n' % (updated_count, unaffect_count, failed_count) )
+            self.stdout.write('Update finished. Groups Updated: %d, Unaffected: %d, Failed: %d\n' % (updated_count, unaffect_count, failed_count) )
