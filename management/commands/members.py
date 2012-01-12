@@ -33,7 +33,7 @@ class Command(BaseCommand):
                 added = result['added_users']
                 
                 if not created and not removed and not added:
-                    message = 'No updated needed for group "%s".' % (group.name) 
+                    message = 'No update needed for group "%s".' % (group.name) 
                     unaffect_count += 1
                 else:
                     message = 'Successfully updated group "%s". Created: %d, Added:%d, Removed: %d.' % (group.name, len(created),len(added),len(removed))
