@@ -1,10 +1,14 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User,Group
 
 # Utils.py contains the get request needed to process the information.
 import utils
+
+
+def user_is_staff(user):
+    return user.is_staff
 
 def home_page(request):
 
@@ -63,18 +67,18 @@ def view_group_members(request,group):
 
     return render_to_response('members.html',args,context_instance=RequestContext(request))
 
+#@user_passes_test(user_is_staff)
 def update_members(request,group):
     '''
     Updates the users of a group for use in the django databases.
     '''
-    
     # Call the update_group_members method in utils.py to update the groups.
-    args = utils.update_group_members(group)
+    result = utils.update_group_members(group)
 
     # Grab all of the members of the group from the group web service. If the group doesn't exist, stop further processing.
     #result, group_exists = utils.get_group_members(group)
     
-    if not args['is_updated']:
+    if not result['is_updated']:
         # No group was found. Return a error message. 
         args = {
             'title':'Group: %s - Update members' % group,
@@ -83,6 +87,7 @@ def update_members(request,group):
         }
         return render_to_response('update.html',args,context_instance=RequestContext(request))
 
+    args = result
     args['group'] = group
     args['title'] = 'Group: %s - Update members' % group,
  
