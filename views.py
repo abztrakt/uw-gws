@@ -1,14 +1,10 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User,Group
 
 # Utils.py contains the get request needed to process the information.
 import utils
-
-
-def user_is_staff(user):
-    return user.is_staff
 
 def home_page(request):
 
@@ -17,7 +13,7 @@ def home_page(request):
     }
     return render_to_response('home.html',args,context_instance=RequestContext(request))
 
-
+@login_required(login_url='/admin/')
 def view_group_info(request,group):
     '''
     Returns all of the HTML information associated with that group. 
@@ -48,6 +44,7 @@ def view_group_list(request):
 
     return render_to_response('list.html',args,context_instance=RequestContext(request))
 
+@login_required(login_url='/admin/')
 def view_group_members(request,group):
     '''
     Returns a list of all of the members of the group using the Groups Web Service.
@@ -67,7 +64,8 @@ def view_group_members(request,group):
 
     return render_to_response('members.html',args,context_instance=RequestContext(request))
 
-#@user_passes_test(user_is_staff)
+
+@permission_required('auth.change_group', login_url='/admin/')
 def update_members(request,group):
     '''
     Updates the users of a group for use in the django databases.
