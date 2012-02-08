@@ -1,12 +1,19 @@
-This is a Django App to sync Django groups with the UW groups web service (GWS).
+This is a Django App to sync Django groups with the University of Washington groups web service (GWS).
 
-UW groups web service REST API: https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API
+Information UW groups web service REST API:
+https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API
+
 
 Dependencies:
-- Server Configurations: Must have permission to get information from GWS
-- Security and Access Control: https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API#GroupsWebServiceRESTAPI-Securityandaccesscontrol
+To access the UW GWS, you must meet the Authentication requirements listed here:
+https://wiki.cac.washington.edu/display/infra/Groups+Web+Service+REST+API#GroupsWebServiceRESTAPI-Securityandaccesscontrol
 
-In your site's settings.py (or local_settings.py if you use one) you will need to set the following constants:
+
+Installation:
+
+Put the uw_gws app somewhere in your Django site or on your PYTHONPATH and add 'uw_gws' to your INSTALLED_APPS.
+
+In your site's settings.py (or local_settings.py if you use one) you will need to add the following constants:
 
 GWS_HOST: the fqdn of the Groups Web Service host
 GWS_PORT: the port the GWS communicates on
@@ -14,3 +21,16 @@ METHOD: 'GET'
 URL: 'https://%s:%s/group_sws/v2/' % (GWS_HOST, GWS_PORT)
 KEY_FILE: the SSL key for your application
 CERT_FILE: the SSL cert for your application
+
+Install with manage.py syncdb.
+
+
+Usage:
+
+For uw_gws to successfuly sync members with a group that group must have the same name as one of the groups in the UW_GWS.
+
+Once installed, uw_gws adds a new admin action to the Groups model in your admin interface. You can then select groups and choose 'Update selected groups' from the Action menu.
+
+You can also sync groups from the command line with 'manage.py members'. By default, this will print status updates as it works, and you can control the level of output with the --verbosity flag (0-2). This is particularly useful if you wish to schedule updates with cron.
+
+Optionally, you can map the uw_gws app in your root urls.py to make some additional viewing and updating functionality available. Users must be authenticated to access any views that make a call to the UW GWS.
