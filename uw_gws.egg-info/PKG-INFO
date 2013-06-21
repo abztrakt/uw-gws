@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: uw-gws
+Version: 1.0
+Summary: An app for synching Django groups with University of Washington GWS groups.
+Home-page: http://github.com/abztrakt/uw-gws
+Author: Craig M. Stimmel, Michael Nguyen
+Author-email: UNKNOWN
+License: Apache
+Description: UNKNOWN
+Platform: UNKNOWN

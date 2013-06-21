@@ -1,0 +1,13 @@
+setup.py
+uw_gws/__init__.py
+uw_gws/admin.py
+uw_gws/models.py
+uw_gws/tests.py
+uw_gws/urls.py
+uw_gws/utils.py
+uw_gws/views.py
+uw_gws.egg-info/PKG-INFO
+uw_gws.egg-info/SOURCES.txt
+uw_gws.egg-info/dependency_links.txt
+uw_gws.egg-info/requires.txt
+uw_gws.egg-info/top_level.txt
