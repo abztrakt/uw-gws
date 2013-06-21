@@ -1,0 +1,12 @@
+
+    # Use XHTML parsing to get group information we'll cache for other uses.
+    groupinfo = {}
+    dom = xml.dom.minidom.parseString(body)
+    spans = dom.getElementsByTagName("span")
+    for element in spans:
+        if element.firstChild is not None:
+            groupinfo[element.getAttribute('class')] = element.firstChild.toxml()
+        else:
+            groupinfo[element.getAttribute('class')] = None
+
+    print groupinfo
