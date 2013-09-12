@@ -1,8 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from django.contrib.auth.models import Permission
-from django.contrib.auth.models import GroupManager
-from django.db import models
 
 # Utils.py contains the get request needed to process the information.
 import utils
